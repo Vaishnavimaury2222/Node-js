@@ -3,25 +3,25 @@ const server = express();
 const hostname = "127.0.0.1";
 const port = 3000;
 
-server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.send(`
-    <form method="POST" action="/submit">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name"><br><br>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email"><br><br>
-      <button type="submit">Submit</button>
-    </form>
-  `);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
+  res.send("Hello, world!");
 });
 
-server.post("/submit", (req, res) => {
-  const { name, email } = req.body;
-  res.send(`Name: ${name}, Email: ${email}`);
+server.post("/sum", (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
+  const { num1, num2 } = req.body;
+  const sum = num1 + num2;
+  res.json({ sum });
 });
-
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
