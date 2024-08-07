@@ -1,13 +1,14 @@
-const express = require('express');
-const cors = require('cors')
-const app = express();
+const http = require('http');
 
-app.use(cors());
+const hostname = '127.0.0.1';
+const port = 80;
 
-app.use('/login', (req, res) => {
-  res.send({
-    token: 'test123'
-  });
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('I am running');
 });
 
-app.listen(8080, () => console.log('API is running on http://localhost:8080/login'));
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
